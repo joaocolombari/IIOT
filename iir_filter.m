@@ -4,17 +4,18 @@ function filtered_signal = iir_filter(order, response, Fc, input_signal, Fs)
     switch response 
         % Design butter filter 
         case 'highpass'
-            [b, a] = butter(order, Wn, 'high');
+            [z, p, k] = butter(order, Wn, 'high');
         case 'lowpass'
-            [b, a] = butter(order, Wn, 'low');
+            [z, p, k] = butter(order, Wn, 'low');
         case 'bandpass'
-            [b, a] = butter(order, Wn, 'bandpass');
+            [z, p, k] = butter(order, Wn, 'bandpass');
         case 'bandstop'
-            [b, a] = butter(order, Wn, 'stop');
+            [z, p, k] = butter(order, Wn, 'stop');
         otherwise 
             error('Unknown filter response. Check spell');
     end
-    freqz(b,a,[],Fs)
+    [sos, g] = zp2sos(z, p, k);
+    h2 = dfilt.df2sos(sos, g);
     % Apply the filter to the input signal
-    filtered_signal = filter(b, a, input_signal);
+    filtered_signal = filter(h2, input_signal);
 end
