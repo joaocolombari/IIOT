@@ -304,61 +304,24 @@ title('RMS sample 3');
 % axis labels, etc. Save the files in ".fig" and "jpg" formats (to present in
 % a text document along with the developed script and the steps performed).
 
-% Calculate mean and std for the signals
-Y.mean_rms_filtered_dressPass0001 = mean(Y.rms_filtered_dressPass0001) ...
-    *ones(size(Y.rms_filtered_dressPass0001));
-Y.mean_rms_filtered_dressPass0050 = mean(Y.rms_filtered_dressPass0050) ...
-    *ones(size(Y.rms_filtered_dressPass0050));
-Y.mean_rms_filtered_dressPass0150 = mean(Y.rms_filtered_dressPass0150) ...
-    *ones(size(Y.rms_filtered_dressPass0150));
+% I did not understand what was suposed to be done, so ill just do both
+% ways possible:
+%
+%   - 1st: Calculate the mean over the whole vector and pick some points of
+%   the filtered vector (not the RMS one) to calculate the errorbars 
+% 
+%   - 2nd: Calulate the windowed mean, and the windowed std for the
+%   filtered signal (not RMS) and plot the mean with the std around it. In
+%   this case, that I rather use, the errorbars are less usefull than a
+%   shaded plot around the mean
 
-% Calculate the std for num_errorbar points
-num_errorbars = 10;
-X.indices_rms_filtered_dressPass0001 = round(linspace(1, ...
-    length(Y.rms_filtered_dressPass0001), num_errorbars));
-X.indices_rms_filtered_dressPass0050 = round(linspace(1, ...
-    length(Y.rms_filtered_dressPass0050), num_errorbars));
-X.indices_rms_filtered_dressPass0150 = round(linspace(1, ...
-    length(Y.rms_filtered_dressPass0150), num_errorbars));
-Y.error_bars_rms_filtered_dressPass0001 = std(Y.rms_filtered_dressPass0001) ...
-    * ones(size(indices));
+choice = '1st';  % choose between '1st' or '2nd' options
 
+if strcmp(choice, '1st')
+    run("step_f_1st_choice.m");
+end
 
-
-
-
-
-std_rms_filtered_dressPass0001=std(Y.rms_filtered_dressPass0001);
-num_errorbars = 10;
-indices = round(linspace(1, length(Y.rms_filtered_dressPass0001), num_errorbars));
-error_bars = std_rms_filtered_dressPass0001 * ones(size(indices));
-errorbar(indices, error_values, error_bars, 'o', 'DisplayName', 'Standard Deviation', 'LineWidth', 1);
-
-
-
-% Calcular o valor médio e o desvio padrão dos sinais RMS nao filtrados 
-mean_unfiltered = [mean(rms_dressPass0001) ...
-        mean(rms_dressPass0050) ...
-        mean(rms_dressPass0150)];
-
-std_unfiltered = [std(rms_dressPass0001) ...
-       std(rms_dressPass0050) ...
-       std(rms_dressPass0150)];
-
-% Plotar o resultado em um mesmo gráfico usando errorbar
-figure(7);
-
-subplot(2,1,1); 
-errorbar(1:3, mean_filtered, std_filtered, '-o', 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(2,1,2); 
-errorbar(1:3, mean_unfiltered, std_unfiltered, '-o', 'DisplayName', 'Não Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3);
-legend('Media nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras nao filtradas');
+clear choice;
 
 %% Passo g
 

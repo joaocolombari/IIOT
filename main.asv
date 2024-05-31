@@ -304,13 +304,15 @@ title('RMS sample 3');
 % axis labels, etc. Save the files in ".fig" and "jpg" formats (to present in
 % a text document along with the developed script and the steps performed).
 
+% I did not understand what was suposed to be done, so ill just do both
+% ways possible:
+%
+
+
 % Calculate mean and std for the signals
-Y.mean_rms_filtered_dressPass0001 = mean(Y.rms_filtered_dressPass0001) ...
-    *ones(size(Y.rms_filtered_dressPass0001));
-Y.mean_rms_filtered_dressPass0050 = mean(Y.rms_filtered_dressPass0050) ...
-    *ones(size(Y.rms_filtered_dressPass0050));
-Y.mean_rms_filtered_dressPass0150 = mean(Y.rms_filtered_dressPass0150) ...
-    *ones(size(Y.rms_filtered_dressPass0150));
+Y.mean_filtered_dressPass0001 = mean(Y.filtered_dressPass0001);
+Y.mean_filtered_dressPass0050 = mean(Y.filtered_dressPass0050);
+Y.mean_filtered_dressPass0150 = mean(Y.filtered_dressPass0150);
 
 % Calculate the std for num_errorbar points
 num_errorbars = 10;

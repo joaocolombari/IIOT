@@ -12,6 +12,8 @@ function mean_values = calculate_mean(vector, window_size)
 
     mean_values = repelem(mean_values, window_size);
 
+    mean_values_temp = [];
+
     % If there are remaining samples, calculate the mean for the last window
     if rem(length(vector), window_size) > 0
         start_index = num_windows * window_size + 1;

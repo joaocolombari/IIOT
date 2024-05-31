@@ -12,6 +12,8 @@ function rms_values = calculate_rms(vector, window_size)
 
     rms_values = repelem(rms_values, window_size);
 
+    rms_values_temp = [];
+
     % If there are remaining samples, calculate RMS for the last window
     if rem(length(vector), window_size) > 0
         start_index = num_windows * window_size + 1;

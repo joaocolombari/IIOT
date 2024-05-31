@@ -12,6 +12,8 @@ function std_values = calculate_std(vector, window_size)
 
     std_values = repelem(std_values, window_size);
 
+    std_values_temp = [];
+
     % If there are remaining samples, calculate the standard deviation for the last window
     if rem(length(vector), window_size) > 0
         start_index = num_windows * window_size + 1;
