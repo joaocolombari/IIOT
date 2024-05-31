@@ -28,7 +28,7 @@ Y.std_filtered_dressPass0150 = calculate_std(Y.filtered_dressPass0150, block_siz
 
 % Plot the results for each signal
 figure(9);
-
+sgtitle('Mean and STD for the whole signal - 2st choice');
 % Plot for sample 1 (unfiltered)
 subplot(3, 2, 1);
 plot(X.dressPass0001, Y.dressPass0001); hold on;

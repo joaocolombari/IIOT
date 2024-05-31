@@ -332,155 +332,199 @@ end
 
 clear choice;
 
+%% Step g
+
+% Number of bins for the histograms
+num_bins = 50;
+
+% Plot histograms for each signal
+figure(10);
+sgtitle('Histograms');
+% Histogram for sample 1 (unfiltered)
+subplot(3, 2, 1);
+histogram(Y.dressPass0001, num_bins, 'Normalization', 'pdf');
+title('Sample 1 (unfiltered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
+% Histogram for sample 1 (filtered)
+subplot(3, 2, 2);
+histogram(Y.filtered_dressPass0001, num_bins, 'Normalization', 'pdf');
+title('Sample 1 (filtered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
+% Histogram for sample 2 (unfiltered)
+subplot(3, 2, 3);
+histogram(Y.dressPass0050, num_bins, 'Normalization', 'pdf');
+title('Sample 2 (unfiltered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
+% Histogram for sample 2 (filtered)
+subplot(3, 2, 4);
+histogram(Y.filtered_dressPass0050, num_bins, 'Normalization', 'pdf');
+title('Sample 2 (filtered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
+% Histogram for sample 3 (unfiltered)
+subplot(3, 2, 5);
+histogram(Y.dressPass0150, num_bins, 'Normalization', 'pdf');
+title('Sample 3 (unfiltered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
+% Histogram for sample 3 (filtered)
+subplot(3, 2, 6);
+histogram(Y.filtered_dressPass0150, num_bins, 'Normalization', 'pdf');
+title('Sample 3 (filtered)');
+xlabel('Signal Value'); ylabel('Probability Density');
+
 
 %% Passo g
 
-% Repita os passos e) e f) substituindo o RMS pelo cálculo da a energia do 
-% sinal, kurtosis e skewness. No entanto, para o passo f), calcular apenas 
-% a média, plotar sinais no formato de gráfico de barras, comparando os 
-% sinais filtrados com sem filtro
-
-% Calcular a energia do sinal para os sinais filtrados 
-energy_filtered_dressPass0001 = zeros(1, num_blocks);
-energy_filtered_dressPass0050 = zeros(1, num_blocks);
-energy_filtered_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    energy_filtered_dressPass0001(i) = sum(filtered_dressPass0001(start_index:end_index).^2);
-    energy_filtered_dressPass0050(i) = sum(filtered_dressPass0050(start_index:end_index).^2);
-    energy_filtered_dressPass0150(i) = sum(filtered_dressPass0150(start_index:end_index).^2);
-end
-
-% Calcular a energia do sinal para os sinais nao filtrados 
-energy_dressPass0001 = zeros(1, num_blocks);
-energy_dressPass0050 = zeros(1, num_blocks);
-energy_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    energy_dressPass0001(i) = sum(dressPass0001(start_index:end_index).^2);
-    energy_dressPass0050(i) = sum(dressPass0050(start_index:end_index).^2);
-    energy_dressPass0150(i) = sum(dressPass0150(start_index:end_index).^2);
-end
-
-mean_energy_filtered = [mean(energy_filtered_dressPass0001) ...
-                         mean(energy_filtered_dressPass0050) ...
-                         mean(energy_filtered_dressPass0150)];
-
-mean_energy_unfiltered = [mean(energy_dressPass0001) ...
-                         mean(energy_dressPass0050) ...
-                         mean(energy_dressPass0150)];
-
-
-% Calcular a kurtosis para os sinais filtrados 
-kurtosis_filtered_dressPass0001 = zeros(1, num_blocks);
-kurtosis_filtered_dressPass0050 = zeros(1, num_blocks);
-kurtosis_filtered_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    kurtosis_filtered_dressPass0001(i) = kurtosis(filtered_dressPass0001(start_index:end_index),0);
-    kurtosis_filtered_dressPass0050(i) = kurtosis(filtered_dressPass0050(start_index:end_index),0);
-    kurtosis_filtered_dressPass0150(i) = kurtosis(filtered_dressPass0150(start_index:end_index),0);
-end
-
-% Calcular a kurtosis para os sinais nao filtrados 
-kurtosis_dressPass0001 = zeros(1, num_blocks);
-kurtosis_dressPass0050 = zeros(1, num_blocks);
-kurtosis_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    kurtosis_dressPass0001(i) = kurtosis(dressPass0001(start_index:end_index),0);
-    kurtosis_dressPass0050(i) = kurtosis(dressPass0050(start_index:end_index),0);
-    kurtosis_dressPass0150(i) = kurtosis(dressPass0150(start_index:end_index),0);
-end
-
-mean_kurtosis_filtered = [mean(kurtosis_filtered_dressPass0001) ...
-                          mean(kurtosis_filtered_dressPass0050) ...
-                          mean(kurtosis_filtered_dressPass0150)];
-
-mean_kurtosis_unfiltered = [mean(kurtosis_dressPass0001) ...
-                          mean(kurtosis_dressPass0050) ...
-                          mean(kurtosis_dressPass0150)];
-
-% Calcular a skewness para os sinais filtrados 
-skewness_filtered_dressPass0001 = zeros(1, num_blocks);
-skewness_filtered_dressPass0050 = zeros(1, num_blocks);
-skewness_filtered_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    skewness_filtered_dressPass0001(i) = skewness(filtered_dressPass0001(start_index:end_index),0);
-    skewness_filtered_dressPass0050(i) = skewness(filtered_dressPass0050(start_index:end_index),0);
-    skewness_filtered_dressPass0150(i) = skewness(filtered_dressPass0150(start_index:end_index),0);
-end
-
-% Calcular a skewness para os sinais nao filtrados 
-skewness_dressPass0001 = zeros(1, num_blocks);
-skewness_dressPass0050 = zeros(1, num_blocks);
-skewness_dressPass0150 = zeros(1, num_blocks);
-
-for i = 1:num_blocks
-    start_index = (i - 1) * block_size + 1;
-    end_index = i * block_size;
-    skewness_dressPass0001(i) = skewness(dressPass0001(start_index:end_index),0);
-    skewness_dressPass0050(i) = skewness(dressPass0050(start_index:end_index),0);
-    skewness_dressPass0150(i) = skewness(dressPass0150(start_index:end_index),0);
-end
-
-mean_skewness_filtered = [mean(skewness_filtered_dressPass0001) ...
-                          mean(skewness_filtered_dressPass0050) ...
-                          mean(skewness_filtered_dressPass0150)];
-
-mean_skewness_unfiltered = [mean(skewness_dressPass0001) ...
-                          mean(skewness_dressPass0050) ...
-                          mean(skewness_dressPass0150)];
-
-% Plotar o resultado em um mesmo gráfico usando errorbar
-figure(8);
-
-subplot(3,2,1); 
-bar(1:3, mean_energy_filtered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media energia filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(3,2,2); 
-bar(1:3, mean_energy_unfiltered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media energia nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(3,2,3); 
-bar(1:3, mean_kurtosis_filtered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media kurtosis filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(3,2,4); 
-bar(1:3, mean_kurtosis_unfiltered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media kurtosis nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(3,2,5); 
-bar(1:3, mean_skewness_filtered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media skewness filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
-
-subplot(3,2,6); 
-bar(1:3, mean_skewness_unfiltered, 'DisplayName', 'Filtrado');
-xlim([0.5 3.5]); xticks(1:1:3); 
-legend('Media skewness nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
-title('Estatisticas amostras filtradas');
+% % Repita os passos e) e f) substituindo o RMS pelo cálculo da a energia do 
+% % sinal, kurtosis e skewness. No entanto, para o passo f), calcular apenas 
+% % a média, plotar sinais no formato de gráfico de barras, comparando os 
+% % sinais filtrados com sem filtro
+% 
+% % Calcular a energia do sinal para os sinais filtrados 
+% energy_filtered_dressPass0001 = zeros(1, num_blocks);
+% energy_filtered_dressPass0050 = zeros(1, num_blocks);
+% energy_filtered_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     energy_filtered_dressPass0001(i) = sum(filtered_dressPass0001(start_index:end_index).^2);
+%     energy_filtered_dressPass0050(i) = sum(filtered_dressPass0050(start_index:end_index).^2);
+%     energy_filtered_dressPass0150(i) = sum(filtered_dressPass0150(start_index:end_index).^2);
+% end
+% 
+% % Calcular a energia do sinal para os sinais nao filtrados 
+% energy_dressPass0001 = zeros(1, num_blocks);
+% energy_dressPass0050 = zeros(1, num_blocks);
+% energy_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     energy_dressPass0001(i) = sum(dressPass0001(start_index:end_index).^2);
+%     energy_dressPass0050(i) = sum(dressPass0050(start_index:end_index).^2);
+%     energy_dressPass0150(i) = sum(dressPass0150(start_index:end_index).^2);
+% end
+% 
+% mean_energy_filtered = [mean(energy_filtered_dressPass0001) ...
+%                          mean(energy_filtered_dressPass0050) ...
+%                          mean(energy_filtered_dressPass0150)];
+% 
+% mean_energy_unfiltered = [mean(energy_dressPass0001) ...
+%                          mean(energy_dressPass0050) ...
+%                          mean(energy_dressPass0150)];
+% 
+% 
+% % Calcular a kurtosis para os sinais filtrados 
+% kurtosis_filtered_dressPass0001 = zeros(1, num_blocks);
+% kurtosis_filtered_dressPass0050 = zeros(1, num_blocks);
+% kurtosis_filtered_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     kurtosis_filtered_dressPass0001(i) = kurtosis(filtered_dressPass0001(start_index:end_index),0);
+%     kurtosis_filtered_dressPass0050(i) = kurtosis(filtered_dressPass0050(start_index:end_index),0);
+%     kurtosis_filtered_dressPass0150(i) = kurtosis(filtered_dressPass0150(start_index:end_index),0);
+% end
+% 
+% % Calcular a kurtosis para os sinais nao filtrados 
+% kurtosis_dressPass0001 = zeros(1, num_blocks);
+% kurtosis_dressPass0050 = zeros(1, num_blocks);
+% kurtosis_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     kurtosis_dressPass0001(i) = kurtosis(dressPass0001(start_index:end_index),0);
+%     kurtosis_dressPass0050(i) = kurtosis(dressPass0050(start_index:end_index),0);
+%     kurtosis_dressPass0150(i) = kurtosis(dressPass0150(start_index:end_index),0);
+% end
+% 
+% mean_kurtosis_filtered = [mean(kurtosis_filtered_dressPass0001) ...
+%                           mean(kurtosis_filtered_dressPass0050) ...
+%                           mean(kurtosis_filtered_dressPass0150)];
+% 
+% mean_kurtosis_unfiltered = [mean(kurtosis_dressPass0001) ...
+%                           mean(kurtosis_dressPass0050) ...
+%                           mean(kurtosis_dressPass0150)];
+% 
+% % Calcular a skewness para os sinais filtrados 
+% skewness_filtered_dressPass0001 = zeros(1, num_blocks);
+% skewness_filtered_dressPass0050 = zeros(1, num_blocks);
+% skewness_filtered_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     skewness_filtered_dressPass0001(i) = skewness(filtered_dressPass0001(start_index:end_index),0);
+%     skewness_filtered_dressPass0050(i) = skewness(filtered_dressPass0050(start_index:end_index),0);
+%     skewness_filtered_dressPass0150(i) = skewness(filtered_dressPass0150(start_index:end_index),0);
+% end
+% 
+% % Calcular a skewness para os sinais nao filtrados 
+% skewness_dressPass0001 = zeros(1, num_blocks);
+% skewness_dressPass0050 = zeros(1, num_blocks);
+% skewness_dressPass0150 = zeros(1, num_blocks);
+% 
+% for i = 1:num_blocks
+%     start_index = (i - 1) * block_size + 1;
+%     end_index = i * block_size;
+%     skewness_dressPass0001(i) = skewness(dressPass0001(start_index:end_index),0);
+%     skewness_dressPass0050(i) = skewness(dressPass0050(start_index:end_index),0);
+%     skewness_dressPass0150(i) = skewness(dressPass0150(start_index:end_index),0);
+% end
+% 
+% mean_skewness_filtered = [mean(skewness_filtered_dressPass0001) ...
+%                           mean(skewness_filtered_dressPass0050) ...
+%                           mean(skewness_filtered_dressPass0150)];
+% 
+% mean_skewness_unfiltered = [mean(skewness_dressPass0001) ...
+%                           mean(skewness_dressPass0050) ...
+%                           mean(skewness_dressPass0150)];
+% 
+% % Plotar o resultado em um mesmo gráfico usando errorbar
+% figure(8);
+% 
+% subplot(3,2,1); 
+% bar(1:3, mean_energy_filtered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media energia filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
+% 
+% subplot(3,2,2); 
+% bar(1:3, mean_energy_unfiltered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media energia nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
+% 
+% subplot(3,2,3); 
+% bar(1:3, mean_kurtosis_filtered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media kurtosis filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
+% 
+% subplot(3,2,4); 
+% bar(1:3, mean_kurtosis_unfiltered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media kurtosis nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
+% 
+% subplot(3,2,5); 
+% bar(1:3, mean_skewness_filtered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media skewness filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
+% 
+% subplot(3,2,6); 
+% bar(1:3, mean_skewness_unfiltered, 'DisplayName', 'Filtrado');
+% xlim([0.5 3.5]); xticks(1:1:3); 
+% legend('Media skewness nao filtrado'); xlabel('Amostra'); ylabel('Magnitude'); 
+% title('Estatisticas amostras filtradas');
 
 
 
