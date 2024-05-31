@@ -313,15 +313,25 @@ title('RMS sample 3');
 %   - 2nd: Calulate the windowed mean, and the windowed std for the
 %   filtered signal (not RMS) and plot the mean with the std around it. In
 %   this case, that I rather use, the errorbars are less usefull than a
-%   shaded plot around the mean
+%   shaded plot around the mean. Nevertheless the shaded plot consumes too
+%   much computational resources, so I'll fake it by plotting both positive
+%   and negative std dev
 
-choice = '1st';  % choose between '1st' or '2nd' options
+choice = 'none';  % Choose between '1st' or '2nd' options
 
-if strcmp(choice, '1st')
-    run("step_f_1st_choice.m");
+switch choice
+    case '1st'
+        run("step_f_1st_choice.m");
+    case '2nd'
+        run("step_f_2nd_choice.m");
+    case 'none'
+        warning('Skiping Step f');
+    otherwise
+        error('Invalid choice. Please select either ''1st'' or ''2nd''.');
 end
 
 clear choice;
+
 
 %% Passo g
 

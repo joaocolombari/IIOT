@@ -1,0 +1,107 @@
+% -------------------------------------- % 
+%      IIOT - Step f 1st choice          %
+%      Joao Victor Colombari Carlet      %
+%      jvccarlet@usp.br                  %
+% -------------------------------------- % 
+
+% This is not a standalone script and runs depending on the user's choice
+% within main.m!
+
+% new sample rate
+Fs2 = 50e3;
+
+Y.RS_filtered_dressPass0001
+
+% Calculate the mean and std for each signal using the defined functions
+Y.mean_rms_filtered_dressPass0001 = calculate_mean(Y.filtered_dressPass0001, block_size);
+Y.std_rms_filtered_dressPass0001 = calculate_std(Y.filtered_dressPass0001, block_size);
+
+Y.mean_rms_filtered_dressPass0050 = calculate_mean(Y.filtered_dressPass0050, block_size);
+Y.std_rms_filtered_dressPass0050 = calculate_std(Y.filtered_dressPass0050, block_size);
+
+Y.mean_rms_filtered_dressPass0150 = calculate_mean(Y.filtered_dressPass0150, block_size);
+Y.std_rms_filtered_dressPass0150 = calculate_std(Y.filtered_dressPass0150, block_size);
+
+Y.mean_rms_dressPass0001 = calculate_mean(Y.dressPass0001, block_size);
+Y.std_rms_dressPass0001 = calculate_std(Y.dressPass0001, block_size);
+
+Y.mean_rms_dressPass0050 = calculate_mean(Y.dressPass0050, block_size);
+Y.std_rms_dressPass0050 = calculate_std(Y.dressPass0050, block_size);
+
+Y.mean_rms_dressPass0150 = calculate_mean(Y.dressPass0150, block_size);
+Y.std_rms_dressPass0150 = calculate_std(Y.dressPass0150, block_size);
+
+% Plot the results
+figure;
+
+% Plot for sample 1 (unfiltered)
+subplot(3,2,1);
+x = 1:length(Y.mean_rms_dressPass0001);
+fill([x fliplr(x)], [Y.mean_rms_dressPass0001 + Y.std_rms_dressPass0001, ...
+      fliplr(Y.mean_rms_dressPass0001 - Y.std_rms_dressPass0001)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_dressPass0001, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (unfiltered)');
+plot(x, Y.rms_dressPass0001, 'r', 'DisplayName', 'RMS (unfiltered)');
+title('Sample 1 (unfiltered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
+
+% Plot for sample 1 (filtered)
+subplot(3,2,2);
+x = 1:length(Y.mean_rms_filtered_dressPass0001);
+fill([x fliplr(x)], [Y.mean_rms_filtered_dressPass0001 + Y.std_rms_filtered_dressPass0001, ...
+      fliplr(Y.mean_rms_filtered_dressPass0001 - Y.std_rms_filtered_dressPass0001)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_filtered_dressPass0001, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (filtered)');
+plot(x, Y.rms_filtered_dressPass0001, 'r', 'DisplayName', 'RMS (filtered)');
+title('Sample 1 (filtered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
+
+% Plot for sample 2 (unfiltered)
+subplot(3,2,3);
+x = 1:length(Y.mean_rms_dressPass0050);
+fill([x fliplr(x)], [Y.mean_rms_dressPass0050 + Y.std_rms_dressPass0050, ...
+      fliplr(Y.mean_rms_dressPass0050 - Y.std_rms_dressPass0050)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_dressPass0050, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (unfiltered)');
+plot(x, Y.rms_dressPass0050, 'r', 'DisplayName', 'RMS (unfiltered)');
+title('Sample 2 (unfiltered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
+
+% Plot for sample 2 (filtered)
+subplot(3,2,4);
+x = 1:length(Y.mean_rms_filtered_dressPass0050);
+fill([x fliplr(x)], [Y.mean_rms_filtered_dressPass0050 + Y.std_rms_filtered_dressPass0050, ...
+      fliplr(Y.mean_rms_filtered_dressPass0050 - Y.std_rms_filtered_dressPass0050)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_filtered_dressPass0050, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (filtered)');
+plot(x, Y.rms_filtered_dressPass0050, 'r', 'DisplayName', 'RMS (filtered)');
+title('Sample 2 (filtered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
+
+% Plot for sample 3 (unfiltered)
+subplot(3,2,5);
+x = 1:length(Y.mean_rms_dressPass0150);
+fill([x fliplr(x)], [Y.mean_rms_dressPass0150 + Y.std_rms_dressPass0150, ...
+      fliplr(Y.mean_rms_dressPass0150 - Y.std_rms_dressPass0150)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_dressPass0150, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (unfiltered)');
+plot(x, Y.rms_dressPass0150, 'r', 'DisplayName', 'RMS (unfiltered)');
+title('Sample 3 (unfiltered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
+
+% Plot for sample 3 (filtered)
+subplot(3,2,6);
+x = 1:length(Y.mean_rms_filtered_dressPass0150);
+fill([x fliplr(x)], [Y.mean_rms_filtered_dressPass0150 + Y.std_rms_filtered_dressPass0150, ...
+      fliplr(Y.mean_rms_filtered_dressPass0150 - Y.std_rms_filtered_dressPass0150)], ...
+      'b', 'FaceAlpha', 0.2, 'EdgeColor', 'none'); hold on;
+plot(x, Y.mean_rms_filtered_dressPass0150, 'b', 'LineWidth', 2, 'DisplayName', 'Mean (filtered)');
+plot(x, Y.rms_filtered_dressPass0150, 'r', 'DisplayName', 'RMS (filtered)');
+title('Sample 3 (filtered)');
+xlabel('Time [s]'); ylabel('RMS');
+legend;
