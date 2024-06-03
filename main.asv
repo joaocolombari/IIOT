@@ -459,10 +459,8 @@ mean_skewness_filtered_sample3 = mean(Y.skewness_filtered_dressPass0150);
 
 % Define the data
 statistics = {'RMS', 'Energy', 'Kurtosis', 'Skewness'};
-
 samples = {'Sample 1 (filtered)', 'Sample 1 (unfiltered)', ...
-           'Sample 2 (filtered)', 'Sample 2 (unfiltered)', ...
-           'Sample 3 (filtered)', 'Sample 3 (unfiltered)'};
+          'Sample 2 (filtered)', 'Sample 3 (filtered)'};
 mean_values = [
     % RMS values for each sample (unfiltered to filtered)
     [mean_rms_unfiltered_sample1, mean_rms_filtered_sample1];
