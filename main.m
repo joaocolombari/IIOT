@@ -13,6 +13,8 @@ load("dressPass0001.mat");
 load("dressPass0050.mat");
 load("dressPass0150.mat");
 
+screen_size = get(0, 'ScreenSize');
+
 Fs = 2e6;                   % Sampling frequency                    
 T = 1/Fs;                   % Sampling period   
 
@@ -60,6 +62,10 @@ title('Sample 2'); ylabel('Amplitude'); xlabel('Time [s]');
 subplot(3,1,3); plot(X.dressPass0150,Y.dressPass0150);
 title('Sample 3'); ylabel('Amplitude'); xlabel('Time [s]');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_a.jpg');
+
 %% Step b
 % Obtain the frequency spectrum of the 3 signals using the Fast Fourier 
 % Transform (FFT). Develop a script to perform this calculation for a 
@@ -96,6 +102,10 @@ title('Sample 2'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 subplot(3,1,3); plot(X.freq_axis_8192, Y.dressPass0150_fft_8192); 
 title('Sample 3'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_b_1.jpg');
+
 % Plots cutting between 500 and 15kHz
 figure(3); 
 sgtitle('Unfiltered signals, spectrum of interest');
@@ -108,6 +118,10 @@ title('Sample 2'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 subplot(3,1,3); plot(X.freq_axis_8192, Y.dressPass0150_fft_8192); 
 xlim([500 15e3]);
 title('Sample 3'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_b_2.jpg');
 
 % It can be seen that the 8192 samples is quite small. The symptoms are
 % the rougth traces. It can be made better increasing it!
@@ -145,6 +159,10 @@ subplot(3,2,6); plot(X.freq_axis_32768, Y.dressPass0150_fft_32768);
 xlim([500 15e3]);
 title('Sample 3, 32768 point window'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_b_3.jpg');
+
 %% Step c
 
 % Observing the original graph in MATLAB (.fig), select a frequency band
@@ -168,6 +186,10 @@ title('Sample 2'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 subplot(3,1,3); plot(X.freq_axis_32768, Y.dressPass0150_fft_32768); 
 xlim([500 15e3]);
 title('Sample 3'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_c.jpg');
 
 %% Step d
 
@@ -225,6 +247,10 @@ title('Sample 3, unfiltered'); ylabel('Amplitude'); xlabel('Time [s]');
 subplot(3,2,6); plot(X.filtered_dressPass0150, Y.filtered_dressPass0150);
 title('Sample 3, filtered'); ylabel('Amplitude'); xlabel('Time [s]');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_d_1.jpg');
+
 % Compares filtered to unfiltered signals in frequency dommain 
 figure(7); 
 sgtitle('Filtered to unfiltered signals comparisson in frequency dommain');
@@ -240,6 +266,10 @@ subplot(3,2,5); plot(X.freq_axis_32768, Y.dressPass0150_fft_32768);
 title('Sample 3, unfiltered'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
 subplot(3,2,6); plot(X.freq_axis_32768, Y.filtered_dressPass0150_fft_32768);
 title('Sample 3, filtered'); ylabel('Amplitude'); xlabel('Frequency [Hz]');
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_c_2.jpg');
 
 %% Step e
 
@@ -292,6 +322,9 @@ plot(X.dressPass0150, Y.rms_dressPass0150);
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('RMS'); 
 title('RMS sample 3');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_e_1.jpg');
 
 %% Step f
 
@@ -417,6 +450,10 @@ plot(X.dressPass0150, Y.skewness_dressPass0150);
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Skewness'); 
 title('Skewness sample 3');
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_g_1.jpg');
+
 % Now the mean values are calculated and internally normalized for sake of
 % clearness in the barplot
 % Calculate mean RMS values for each sample (unfiltered and filtered)
@@ -491,6 +528,10 @@ title('Mean Statistics for Each Unfiltered Sample');
 % Adjust tick labels
 set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_g_2.jpg');
+
 % Create the 3D bar plot
 figure(12);
 bar3(mean_values_filtered);
@@ -504,6 +545,9 @@ title('Mean Statistics for Each Filtered Sample');
 % Adjust tick labels
 set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_g_3.jpg');
 
 %% Histogram
 
@@ -561,6 +605,10 @@ xlabel('Signal Value'); ylabel('Probability Density');
 xlim([-2 2]);
 ylim([0 15]);
 
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'histograms.jpg');
+
 %% Spectrogram
 
 new_Fs = 50e3; % New lower sampling frequency for downsampling
@@ -596,6 +644,10 @@ plot_spectrogram(Y.dressPass0150, Fs, window_length, OVERLAP, spectrogram_dB_sca
 
 % Spectrogram for Sample 3 (Filtered)
 plot_spectrogram(Y.filtered_dressPass0150, Fs, window_length, OVERLAP, spectrogram_dB_scale, f_range, 326, 'Sample 3 (Filtered)', new_Fs);
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'spectrograms.jpg');
 
 %% Step h
 

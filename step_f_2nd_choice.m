@@ -88,3 +88,7 @@ plot(X.filtered_dressPass0150, Y.mean_filtered_dressPass0150 - Y.std_filtered_dr
 title('Sample 3 (filtered)');
 xlabel('Time [s]'); ylabel('Signal');
 legend('Original', 'Mean', 'Std Dev');
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_f_2nd.jpg');

@@ -118,3 +118,7 @@ errorbar(X.indices_rms_filtered_dressPass0150, Y.rms_filtered_dressPass0150(X.in
 title('Sample 3, filtered'); 
 xlabel('Time [s]'); ylabel('RMS'); 
 legend('show');
+
+% Set the figure position to full screen and save it
+set(gcf, 'Position', [0, 0, screen_size(3)*0.5, screen_size(4)*0.5]);
+saveas(gcf, 'step_f_1st.jpg');
