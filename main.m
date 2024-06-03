@@ -43,8 +43,6 @@ clear filtered_dressPass0001; clear filtered_dressPass0050; clear filtered_dress
 
 %% A fazer
 
-% - Verificar a escala dos graficos nas comparacoes
-
 % - Trocar os arquivos do link do drive para os sem corte 
 
 %% Step a
@@ -317,7 +315,7 @@ title('RMS sample 3');
 %   much computational resources, so I'll fake it by plotting both positive
 %   and negative std dev
 
-choice = 'none';  % Choose between '1st' or '2nd' options
+choice = '1st';  % Choose between '1st' or '2nd' options
 
 switch choice
     case '1st'
@@ -365,138 +363,146 @@ Y.skewness_dressPass0050 = calculate_skewness(Y.dressPass0050, block_size);
 Y.skewness_dressPass0150 = calculate_skewness(Y.dressPass0150, block_size);
 
 % Plots the resulting vectors for each signal in the same graph
-figure(8); 
+figure(10); 
 sgtitle('Filtered to unfiltered comparison for Energy, Kurtosis, and Skewness')
 
 % Plot energy
-subplot(4,3,1);
+subplot(3,3,1);
 plot(X.filtered_dressPass0001, Y.energy_filtered_dressPass0001); hold on; 
 plot(X.dressPass0001, Y.energy_dressPass0001); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Energy'); 
 title('Energy sample 1');
-subplot(4,3,4);
+subplot(3,3,4);
 plot(X.filtered_dressPass0050, Y.energy_filtered_dressPass0050); hold on; 
 plot(X.dressPass0050, Y.energy_dressPass0050); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Energy'); 
 title('Energy sample 2');
-subplot(4,3,7);
+subplot(3,3,7);
 plot(X.filtered_dressPass0150, Y.energy_filtered_dressPass0150); hold on; 
 plot(X.dressPass0150, Y.energy_dressPass0150); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Energy'); 
 title('Energy sample 3');
 
 % Plot kurtosis
-subplot(4,3,2);
+subplot(3,3,2);
 plot(X.filtered_dressPass0001, Y.kurtosis_filtered_dressPass0001); hold on; 
 plot(X.dressPass0001, Y.kurtosis_dressPass0001); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Kurtosis'); 
 title('Kurtosis sample 1');
-subplot(4,3,5);
+subplot(3,3,5);
 plot(X.filtered_dressPass0050, Y.kurtosis_filtered_dressPass0050); hold on; 
 plot(X.dressPass0050, Y.kurtosis_dressPass0050); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Kurtosis'); 
 title('Kurtosis sample 2');
-subplot(4,3,8);
+subplot(3,3,8);
 plot(X.filtered_dressPass0150, Y.kurtosis_filtered_dressPass0150); hold on; 
 plot(X.dressPass0150, Y.kurtosis_dressPass0150); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Kurtosis'); 
 title('Kurtosis sample 3');
 
 % Plot skewness
-subplot(4,3,3);
+subplot(3,3,3);
 plot(X.filtered_dressPass0001, Y.skewness_filtered_dressPass0001); hold on; 
 plot(X.dressPass0001, Y.skewness_dressPass0001); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Skewness'); 
 title('Skewness sample 1');
-subplot(4,3,6);
+subplot(3,3,6);
 plot(X.filtered_dressPass0050, Y.skewness_filtered_dressPass0050); hold on; 
 plot(X.dressPass0050, Y.skewness_dressPass0050); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Skewness'); 
 title('Skewness sample 2');
-subplot(4,3,9);
+subplot(3,3,9);
 plot(X.filtered_dressPass0150, Y.skewness_filtered_dressPass0150); hold on; 
 plot(X.dressPass0150, Y.skewness_dressPass0150); 
 legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Skewness'); 
 title('Skewness sample 3');
 
+% Now the mean values are calculated and internally normalized for sake of
+% clearness in the barplot
 % Calculate mean RMS values for each sample (unfiltered and filtered)
-mean_rms_unfiltered_sample1 = mean(Y.rms_dressPass0001);
-mean_rms_unfiltered_sample2 = mean(Y.rms_dressPass0050);
-mean_rms_unfiltered_sample3 = mean(Y.rms_dressPass0150);
+mean_rms_unfiltered = [mean(Y.rms_dressPass0001) mean(Y.rms_dressPass0050) mean(Y.rms_dressPass0150)];
+mean_rms_unfiltered = mean_rms_unfiltered/max(mean_rms_unfiltered);
 
-mean_rms_filtered_sample1 = mean(Y.rms_filtered_dressPass0001);
-mean_rms_filtered_sample2 = mean(Y.rms_filtered_dressPass0050);
-mean_rms_filtered_sample3 = mean(Y.rms_filtered_dressPass0150);
+mean_rms_filtered = [mean(Y.rms_filtered_dressPass0001) mean(Y.rms_filtered_dressPass0050) mean(Y.rms_filtered_dressPass0150)];
+mean_rms_filtered = mean_rms_filtered/max(mean_rms_filtered);
 
 % Calculate mean energy values for each sample (unfiltered and filtered)
-mean_energy_unfiltered_sample1 = mean(Y.energy_dressPass0001);
-mean_energy_unfiltered_sample2 = mean(Y.energy_dressPass0050);
-mean_energy_unfiltered_sample3 = mean(Y.energy_dressPass0150);
+mean_energy_unfiltered = [mean(Y.energy_dressPass0001) mean(Y.energy_dressPass0050) mean(Y.energy_dressPass0150)];
+mean_energy_unfiltered = mean_energy_unfiltered/max(mean_energy_unfiltered);
 
-mean_energy_filtered_sample1 = mean(Y.energy_filtered_dressPass0001);
-mean_energy_filtered_sample2 = mean(Y.energy_filtered_dressPass0050);
-mean_energy_filtered_sample3 = mean(Y.energy_filtered_dressPass0150);
+mean_energy_filtered = [mean(Y.energy_filtered_dressPass0001) mean(Y.energy_filtered_dressPass0050) mean(Y.energy_filtered_dressPass0150)];
+mean_energy_filtered = mean_energy_filtered/max(mean_energy_filtered);
 
 % Calculate mean kurtosis values for each sample (unfiltered and filtered)
-mean_kurtosis_unfiltered_sample1 = mean(Y.kurtosis_dressPass0001);
-mean_kurtosis_unfiltered_sample2 = mean(Y.kurtosis_dressPass0050);
-mean_kurtosis_unfiltered_sample3 = mean(Y.kurtosis_dressPass0150);
+mean_kurtosis_unfiltered = [mean(Y.kurtosis_dressPass0001) mean(Y.kurtosis_dressPass0050) mean(Y.kurtosis_dressPass0150)];
+mean_kurtosis_unfiltered = mean_kurtosis_unfiltered/max(mean_kurtosis_unfiltered);
 
-mean_kurtosis_filtered_sample1 = mean(Y.kurtosis_filtered_dressPass0001);
-mean_kurtosis_filtered_sample2 = mean(Y.kurtosis_filtered_dressPass0050);
-mean_kurtosis_filtered_sample3 = mean(Y.kurtosis_filtered_dressPass0150);
+mean_kurtosis_filtered = [mean(Y.kurtosis_filtered_dressPass0001) mean(Y.kurtosis_filtered_dressPass0050) mean(Y.kurtosis_filtered_dressPass0150)];
+mean_kurtosis_filtered = mean_kurtosis_filtered/max(mean_kurtosis_filtered);
 
 % Calculate mean skewness values for each sample (unfiltered and filtered)
-mean_skewness_unfiltered_sample1 = mean(Y.skewness_dressPass0001);
-mean_skewness_unfiltered_sample2 = mean(Y.skewness_dressPass0050);
-mean_skewness_unfiltered_sample3 = mean(Y.skewness_dressPass0150);
+mean_skewness_unfiltered = [mean(Y.skewness_dressPass0001) mean(Y.skewness_dressPass0050) mean(Y.skewness_dressPass0150)];
+mean_skewness_unfiltered = mean_skewness_unfiltered/max(mean_skewness_unfiltered);
 
-mean_skewness_filtered_sample1 = mean(Y.skewness_filtered_dressPass0001);
-mean_skewness_filtered_sample2 = mean(Y.skewness_filtered_dressPass0050);
-mean_skewness_filtered_sample3 = mean(Y.skewness_filtered_dressPass0150);
+mean_skewness_filtered = [mean(Y.skewness_filtered_dressPass0001) mean(Y.skewness_filtered_dressPass0050) mean(Y.skewness_filtered_dressPass0150)];
+mean_skewness_filtered = mean_skewness_filtered/max(mean_skewness_filtered);
 
 % Assuming you have already calculated the mean values for each statistic
 
 % Define the data
-statistics = {'RMS', 'Energy', 'Kurtosis', 'Skewness'};
+statistics = {'Energy', 'RMS', 'Kurtosis', 'Skewness'};
 
-samples = {'Sample 1 (filtered)', 'Sample 1 (unfiltered)', ...
-           'Sample 2 (filtered)', 'Sample 2 (unfiltered)', ...
-           'Sample 3 (filtered)', 'Sample 3 (unfiltered)'};
-mean_values = [
-    % RMS values for each sample (unfiltered to filtered)
-    [mean_rms_unfiltered_sample1, mean_rms_filtered_sample1];
-    [mean_rms_unfiltered_sample2, mean_rms_filtered_sample2];
-    [mean_rms_unfiltered_sample3, mean_rms_filtered_sample3];
-    % Energy values for each sample (unfiltered to filtered)
-    [mean_energy_unfiltered_sample1, mean_energy_filtered_sample1];
-    [mean_energy_unfiltered_sample2, mean_energy_filtered_sample2];
-    [mean_energy_unfiltered_sample3, mean_energy_filtered_sample3];
-    % Kurtosis values for each sample (unfiltered to filtered)
-    [mean_kurtosis_unfiltered_sample1, mean_kurtosis_filtered_sample1];
-    [mean_kurtosis_unfiltered_sample2, mean_kurtosis_filtered_sample2];
-    [mean_kurtosis_unfiltered_sample3, mean_kurtosis_filtered_sample3];
-    % Skewness values for each sample (unfiltered to filtered)
-    [mean_skewness_unfiltered_sample1, mean_skewness_filtered_sample1];
-    [mean_skewness_unfiltered_sample2, mean_skewness_filtered_sample2];
-    [mean_skewness_unfiltered_sample3, mean_skewness_filtered_sample3];
+samples = {'Sample 1', 'Sample 2', 'Sample 3'};
+
+mean_values_unfiltered = [
+    % Energy values for each sample (unfiltered)
+    [mean_energy_unfiltered(1), mean_rms_unfiltered(1), ...
+     mean_kurtosis_unfiltered(1), mean_skewness_unfiltered(1)];
+
+    [mean_energy_unfiltered(2), mean_rms_unfiltered(2), ...
+     mean_kurtosis_unfiltered(2), mean_skewness_unfiltered(2)];
+
+    [mean_energy_unfiltered(3), mean_rms_unfiltered(3), ...
+     mean_kurtosis_unfiltered(3), mean_skewness_unfiltered(3)];
+];
+
+mean_values_filtered = [
+    % Energy values for each sample (filtered)
+    [mean_energy_filtered(1), mean_rms_filtered(1), ...
+     mean_kurtosis_filtered(1), mean_skewness_filtered(1)];
+
+    [mean_energy_filtered(2), mean_rms_filtered(2), ...
+     mean_kurtosis_filtered(2), mean_skewness_filtered(2)];
+
+    [mean_energy_filtered(3), mean_rms_filtered(3), ...
+     mean_kurtosis_filtered(3), mean_skewness_filtered(3)];
 ];
 
 % Create the 3D bar plot
-figure;
-bar3(mean_values);
+figure(11);
+bar3(mean_values_unfiltered);
 
 % Set labels and title
 xlabel('Statistics');
 ylabel('Samples');
 zlabel('Mean Value');
-title('Mean Statistics for Each Sample');
+title('Mean Statistics for Each Unfiltered Sample');
 
 % Adjust tick labels
 set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
 
-% Add a color bar for reference
-colorbar;
+% Create the 3D bar plot
+figure(12);
+bar3(mean_values_filtered);
+
+% Set labels and title
+xlabel('Statistics');
+ylabel('Samples');
+zlabel('Mean Value');
+title('Mean Statistics for Each Filtered Sample');
+
+% Adjust tick labels
+set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
 
 
 %% Histogram
@@ -504,7 +510,7 @@ colorbar;
 % Number of bins for the histograms
 num_bins = 50;
 
-figure(10);
+figure(13);
 sgtitle('Histograms');
 
 % Histogram for sample 1 (unfiltered)
@@ -571,7 +577,7 @@ spectrogram_dB_scale = 60;
 f_range = [0 15e3];
 
 % Plot the spectrograms
-figure(11);
+figure(14);
 
 % Spectrogram for Sample 1
 plot_spectrogram(Y.dressPass0001, Fs, window_length, OVERLAP, spectrogram_dB_scale, f_range, 321, 'Sample 1', new_Fs);
@@ -591,14 +597,11 @@ plot_spectrogram(Y.dressPass0150, Fs, window_length, OVERLAP, spectrogram_dB_sca
 % Spectrogram for Sample 3 (Filtered)
 plot_spectrogram(Y.filtered_dressPass0150, Fs, window_length, OVERLAP, spectrogram_dB_scale, f_range, 326, 'Sample 3 (Filtered)', new_Fs);
 
+%% Step h
 
-
-
-%% Passo h
-
-% Por fim, sintetizar uma breve discussão dos resultados, com considerações 
-% finais e gerais, descrevendo: como os sinais das 3 condições estudadas se 
-% comportam ao longo do tempo e da frequência? Qual foi o impacto da 
-% seleção de uma banda de frequência específica e o que se observa quando 
-% se compara os valores médios da análise estátistica com as diferentes 
-% métricas aplicadas dos sinais filtrados em relação aos não filtrados
+% Finally, synthesize a brief discussion of the results, with final and 
+% general considerations, describing: how the signals of the 3 studied 
+% conditions behave over time and frequency? What was the impact of 
+% selecting a specific frequency band and what is observed when comparing 
+% the average values of statistical analysis with the different metrics 
+% applied to the filtered signals compared to the unfiltered ones

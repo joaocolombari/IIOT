@@ -365,7 +365,7 @@ Y.skewness_dressPass0050 = calculate_skewness(Y.dressPass0050, block_size);
 Y.skewness_dressPass0150 = calculate_skewness(Y.dressPass0150, block_size);
 
 % Plots the resulting vectors for each signal in the same graph
-figure(8); 
+figure(10); 
 sgtitle('Filtered to unfiltered comparison for Energy, Kurtosis, and Skewness')
 
 % Plot energy
@@ -420,75 +420,89 @@ legend('Filtered','Unfiltered'); xlabel('Time [s]'); ylabel('Skewness');
 title('Skewness sample 3');
 
 % Calculate mean RMS values for each sample (unfiltered and filtered)
-mean_rms_unfiltered_sample1 = mean(Y.rms_dressPass0001);
-mean_rms_unfiltered_sample2 = mean(Y.rms_dressPass0050);
-mean_rms_unfiltered_sample3 = mean(Y.rms_dressPass0150);
+mean_rms_unfiltered = [mean(Y.rms_dressPass0001) mean(Y.rms_dressPass0050) mean(Y.rms_dressPass0150)];
+mean_rms_unfiltered = mean_rms_unfiltered./max(mean_rms_unfiltered);
 
-mean_rms_filtered_sample1 = mean(Y.rms_filtered_dressPass0001);
-mean_rms_filtered_sample2 = mean(Y.rms_filtered_dressPass0050);
-mean_rms_filtered_sample3 = mean(Y.rms_filtered_dressPass0150);
+mean_rms_filtered.sample1 = [mean(Y.rms_filtered_dressPass0001) mean(Y.rms_filtered_dressPass0050) mean(Y.rms_filtered_dressPass0150)];
+mean_rms_filtered = mean_rms_filtered./max(mean_rms_filtered);
 
 % Calculate mean energy values for each sample (unfiltered and filtered)
-mean_energy_unfiltered_sample1 = mean(Y.energy_dressPass0001);
-mean_energy_unfiltered_sample2 = mean(Y.energy_dressPass0050);
-mean_energy_unfiltered_sample3 = mean(Y.energy_dressPass0150);
+mean_energy_unfiltered.sample1 = [mean(Y.energy_dressPass0001) mean(Y.energy_dressPass0050) mean(Y.energy_dressPass0150)];
+mean_energy_unfiltered = mean_energy_unfiltered./max(mean_energy_unfiltered);
 
-mean_energy_filtered_sample1 = mean(Y.energy_filtered_dressPass0001);
-mean_energy_filtered_sample2 = mean(Y.energy_filtered_dressPass0050);
-mean_energy_filtered_sample3 = mean(Y.energy_filtered_dressPass0150);
+mean_energy_filtered.sample1 = [mean(Y.energy_filtered_dressPass0001) mean(Y.energy_filtered_dressPass0050) mean(Y.energy_filtered_dressPass0150)];
+mean_energy_filtered = mean_energy_filtered./max(mean_energy_filtered);
 
 % Calculate mean kurtosis values for each sample (unfiltered and filtered)
-mean_kurtosis_unfiltered_sample1 = mean(Y.kurtosis_dressPass0001);
-mean_kurtosis_unfiltered_sample2 = mean(Y.kurtosis_dressPass0050);
-mean_kurtosis_unfiltered_sample3 = mean(Y.kurtosis_dressPass0150);
+mean_kurtosis_unfiltered.sample1 = [mean(Y.kurtosis_dressPass0001) mean(Y.kurtosis_dressPass0050) mean(Y.kurtosis_dressPass0150)];
+mean_kurtosis_unfiltered = mean_kurtosis_unfiltered./max(mean_kurtosis_unfiltered);
 
-mean_kurtosis_filtered_sample1 = mean(Y.kurtosis_filtered_dressPass0001);
-mean_kurtosis_filtered_sample2 = mean(Y.kurtosis_filtered_dressPass0050);
-mean_kurtosis_filtered_sample3 = mean(Y.kurtosis_filtered_dressPass0150);
+mean_kurtosis_filtered.sample1 = [mean(Y.kurtosis_filtered_dressPass0001) mean(Y.kurtosis_filtered_dressPass0050) mean(Y.kurtosis_filtered_dressPass0150)];
+mean_kurtosis_filtered = mean_kurtosis_filtered./max(mean_kurtosis_filtered);
 
 % Calculate mean skewness values for each sample (unfiltered and filtered)
-mean_skewness_unfiltered_sample1 = mean(Y.skewness_dressPass0001);
-mean_skewness_unfiltered_sample2 = mean(Y.skewness_dressPass0050);
-mean_skewness_unfiltered_sample3 = mean(Y.skewness_dressPass0150);
+mean_skewness_unfiltered.sample1 = [mean(Y.skewness_dressPass0001) mean(Y.skewness_dressPass0050) mean(Y.skewness_dressPass0150)];
+mean_skewness_unfiltered = mean_skewness_unfiltered./max(mean_skewness_unfiltered);
 
-mean_skewness_filtered_sample1 = mean(Y.skewness_filtered_dressPass0001);
-mean_skewness_filtered_sample2 = mean(Y.skewness_filtered_dressPass0050);
-mean_skewness_filtered_sample3 = mean(Y.skewness_filtered_dressPass0150);
+mean_skewness_filtered.sample1 = [mean(Y.skewness_filtered_dressPass0001) mean(Y.skewness_filtered_dressPass0050) mean(Y.skewness_filtered_dressPass0150)];
+mean_skewness_filtered = mean_skewness_filtered./max(mean_skewness_filtered);
 
 % Assuming you have already calculated the mean values for each statistic
 
 % Define the data
-statistics = {'RMS', 'Energy', 'Kurtosis', 'Skewness'};
-samples = {'Sample 1 (filtered)', 'Sample 1 (unfiltered)', ...
-          'Sample 2 (filtered)', 'Sample 3 (filtered)'};
-mean_values = [
-    % RMS values for each sample (unfiltered to filtered)
-    [mean_rms_unfiltered_sample1, mean_rms_filtered_sample1];
-    [mean_rms_unfiltered_sample2, mean_rms_filtered_sample2];
-    [mean_rms_unfiltered_sample3, mean_rms_filtered_sample3];
-    % Energy values for each sample (unfiltered to filtered)
-    [mean_energy_unfiltered_sample1, mean_energy_filtered_sample1];
-    [mean_energy_unfiltered_sample2, mean_energy_filtered_sample2];
-    [mean_energy_unfiltered_sample3, mean_energy_filtered_sample3];
-    % Kurtosis values for each sample (unfiltered to filtered)
-    [mean_kurtosis_unfiltered_sample1, mean_kurtosis_filtered_sample1];
-    [mean_kurtosis_unfiltered_sample2, mean_kurtosis_filtered_sample2];
-    [mean_kurtosis_unfiltered_sample3, mean_kurtosis_filtered_sample3];
-    % Skewness values for each sample (unfiltered to filtered)
-    [mean_skewness_unfiltered_sample1, mean_skewness_filtered_sample1];
-    [mean_skewness_unfiltered_sample2, mean_skewness_filtered_sample2];
-    [mean_skewness_unfiltered_sample3, mean_skewness_filtered_sample3];
+statistics = {'Energy', 'RMS', 'Kurtosis', 'Skewness'};
+
+samples = {'Sample 1', 'Sample 2', 'Sample 3'};
+
+mean_values_unfiltered = [
+    % Energy values for each sample (unfiltered)
+    [mean_energy_unfiltered(1), mean_rms_unfiltered(1), ...
+     mean_kurtosis_unfiltered(1), mean_skewness_unfiltered(1)];
+
+    [mean_energy_unfiltered(2), mean_rms_unfiltered(2), ...
+     mean_kurtosis_unfiltered(2), mean_skewness_unfiltered(2)];
+
+    [mean_energy_unfiltered(3), mean_rms_unfiltered(3), ...
+     mean_kurtosis_unfiltered(3), mean_skewness_unfiltered(3)];
+];
+
+mean_values_filtered = [
+    % Energy values for each sample (filtered)
+    [mean_energy_filtered.sample1, mean_rms_filtered(1), ...
+     mean_kurtosis_filtered.sample1, mean_skewness_filtered.sample1];
+
+    [mean_energy_filtered(2), mean_rms_filtered(2), ...
+     mean_kurtosis_filtered(2), mean_skewness_filtered(2)];
+
+    [mean_energy_filtered(3), mean_rms_filtered(3), ...
+     mean_kurtosis_filtered(3), mean_skewness_filtered(3)];
 ];
 
 % Create the 3D bar plot
-figure;
-bar3(mean_values);
+figure(11);
+bar3(mean_values_unfiltered);
 
 % Set labels and title
 xlabel('Statistics');
 ylabel('Samples');
 zlabel('Mean Value');
-title('Mean Statistics for Each Sample');
+title('Mean Statistics for Each Unfiltered Sample');
+
+% Adjust tick labels
+set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
+
+% Add a color bar for reference
+colorbar;
+
+% Create the 3D bar plot
+figure(12);
+bar3(mean_values_filtered);
+
+% Set labels and title
+xlabel('Statistics');
+ylabel('Samples');
+zlabel('Mean Value');
+title('Mean Statistics for Each Filtered Sample');
 
 % Adjust tick labels
 set(gca, 'XTickLabel', statistics, 'YTickLabel', samples);
@@ -502,7 +516,7 @@ colorbar;
 % Number of bins for the histograms
 num_bins = 50;
 
-figure(10);
+figure(12);
 sgtitle('Histograms');
 
 % Histogram for sample 1 (unfiltered)
@@ -569,7 +583,7 @@ spectrogram_dB_scale = 60;
 f_range = [0 15e3];
 
 % Plot the spectrograms
-figure(11);
+figure(13);
 
 % Spectrogram for Sample 1
 plot_spectrogram(Y.dressPass0001, Fs, window_length, OVERLAP, spectrogram_dB_scale, f_range, 321, 'Sample 1', new_Fs);
