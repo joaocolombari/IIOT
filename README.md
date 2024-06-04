@@ -158,10 +158,22 @@
 </ul>
 
 <h2>Results</h2>
-<p>The results of this analysis include time-domain plots, frequency spectra, and statistical features (RMS, average frequency, kurtosis, skewness) for each condition of the tool. These results help in understanding the behavior of the tool under different conditions and can be used for further analysis and process improvement.</p>
+<p>The results of this analysis include time-domain plots, frequency spectra, and statistical features (RMS, average frequency, kurtosis, skewness) for each condition of the tool. These results help in understanding the behavior of the tool under different conditions and can be used for further analysis and process improvement.
+Summerizing, its was first seen the importance of pre-processing the object of study. By cutting and filtering the desired amount of the signal, one can improve the capabilities of its analisys. 
+  
+  Following, the FFT resolution increasement was done just as it would be in an osciloscope. By getting more data into the window, higher resolution traces were obtained, which is always helpfull. From a quick look at the spectra of theinterest band, there is a clear incresement of the power between 6 and 8kHz, which can clearlly be correlated to the tool wear. The second clear aspect is the decrease in an harmonic of about 1kHz.
+
+  As expected, filtering took out some of the RMS amplitude of the signal, since there was a good amount of power over 15kHz. Moreover, there was a slight increase in the mean value of the whole signal. Altho the standard deviation plot the author really wanted - the shaded standerd deviation - could not be done due to computing resources overuse, it was shown that one can easilly fake it by both subtracting and adding the standard deviation from the mean. Talking about this, it was clear the increase of the deviation as the tool was getting worn.
+
+  The Energy, Kurtosis and Skewness were obtained the same way as the RMS, i.e., wondowing, as an osciloscope does. Along with the Histogram, to be touched, one has the four main statistics of a signal. Once there is a big magnitude difference between them, the RMS, Energy, Kurtosis and Skewness means were normalized around each respective maximum value. Since for the unfiltered samples there is a lot of interference, these statistics mean little. For the filtered, nevertheless, there is a clear increse in Energy, RMS and Skewness of the signal. 
+
+  The histogram of a signal shows the probability of a point of the signal be of a determined value and the obtained ones show a Gaussian distribution, which makes the obtained statistics more relliable. For the studied signals, there is a clear spread of the Gaussian along the tool's wear.
+
+  For the Spectrograms, the unfiltered signals had to be ressampled, once they were to be compared with the filtered ones. The truth is the author can't seem to reely on the ressampling he has done, since the magnitudes were indeed different from the obtained in the filtered ones, and the only possible difference to be shown would be a higher amplitude in the sub-bass region, i.e., under 50Hz. For the filtered, nevertheless, the behaviour was the expected from the FFT plots and nearly constant over time, as the time plot suggests. Clear differences were seen along the tool's, wear.
+</p>
 
 <h2>Conclusion</h2>
-<p>This project demonstrates the application of signal processing techniques to analyze industrial process data. The steps outlined provide a comprehensive approach to understanding the data and extracting meaningful insights. The methodology can be extended to other types of signals and processes for similar analysis.</p>
+<p>This project demonstrates the application of signal processing techniques to analyze industrial process data. The steps outlined provide a comprehensive approach to understanding the data and extracting meaningful insights. The methodology can be extended to other types of signals and processes for similar analysis. There could be seen some sort of correlation between the behaviour of the FFT, specially around 6 to 8kHz and 1kHz, the Standard Deviation, the Energy, the RMS, the Skewness, the Histograms and the Spectrograms with the tool's wear. Altho the averaged statisics organized in bar-plots, the author would strongly discourage any reader of usign it by itself, since it can hide the broad behaviour of the signals. From an analog designer and audio enthusiast point of view, the author's wise guess would be to always look at the spectra and the Histogram plots first, since they always have a lot to say, as it could be clear in the present work.</p>
 
 </body>
 </html>
